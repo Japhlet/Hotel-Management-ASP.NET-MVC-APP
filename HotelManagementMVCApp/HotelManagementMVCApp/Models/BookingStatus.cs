@@ -16,9 +16,8 @@ namespace HotelManagementMVCApp.Models
 
         public int bookingStatusId { get; set; }
 
-        [Column("bookingStatus")]
         [StringLength(20)]
-        public string bookingStatus1 { get; set; }
+        public string bookingStatusName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Room> Room { get; set; }

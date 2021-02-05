@@ -18,7 +18,7 @@ namespace HotelManagementMVCApp.Models
         public int genderId { get; set; }
 
         [StringLength(10)]
-        public string genderType { get; set; }
+        public string genderTypeName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }

@@ -24,17 +24,17 @@ namespace HotelManagementMVCApp.Controllers
             roomVM.ListOfBookingStatus = (from obj in db.BookingStatus
                                           select new SelectListItem()
                                           {
-                                              Text = obj.bookingStatus1,
+                                              Text = obj.bookingStatusName,
                                               Value = obj.bookingStatusId.ToString()
                                           }).ToList();
 
             roomVM.ListOfRoomType = (from obj in db.RoomType
                                      select new SelectListItem()
                                      {
-                                         Text = obj.roomType1,
+                                         Text = obj.roomTypeName,
                                          Value = obj.roomTypeId.ToString()
                                      }).ToList();
-            return View();
+            return View(roomVM);
         }
     }
 }

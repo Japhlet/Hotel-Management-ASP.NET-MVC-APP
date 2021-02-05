@@ -17,9 +17,8 @@ namespace HotelManagementMVCApp.Models
 
         public int roomTypeId { get; set; }
 
-        [Column("roomType")]
         [StringLength(20)]
-        public string roomType1 { get; set; }
+        public string roomTypeName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Room> Room { get; set; }

@@ -28,7 +28,7 @@ namespace HotelManagementMVCApp.Models
 
         public int? assignRoomId { get; set; }
 
-        public int? numberOfOccupant { get; set; }
+        public int? numberOfOccupants { get; set; }
 
         public int? totalAmount { get; set; }
 

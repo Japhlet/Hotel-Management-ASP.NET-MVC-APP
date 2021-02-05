@@ -11,9 +11,8 @@ namespace HotelManagementMVCApp.Models
     {
         public int paymentTypeId { get; set; }
 
-        [Column("paymentType")]
         [StringLength(20)]
-        public string paymentType1 { get; set; }
+        public string paymentTypeName { get; set; }
 
         public virtual Payment Payment { get; set; }
     }

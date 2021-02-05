@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace HotelManagementMVCApp.ViewModel
 {
@@ -28,5 +29,10 @@ namespace HotelManagementMVCApp.ViewModel
         public string roomDescription { get; set; }
 
         public bool? isActive { get; set; }
+
+        public HttpPostedFileBase Image { get; set; }
+
+        public List<SelectListItem> ListOfBookingStatus { get; set; }
+        public List<SelectListItem> ListOfRoomType { get; set; }
     }
 }

@@ -16,42 +16,49 @@
                 <h4 class="modal-title">Room</h4>
                 <div class="modal-body">
                     <div class="container">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.roomNumber)
-                            @Html.TextBoxFor(m => m.roomNumber, new { @class = "form-control" })
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                @Html.LabelFor(m => m.roomNumber)
+                                @Html.TextBoxFor(m => m.roomNumber, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                @Html.LabelFor(m => m.roomPrice)
+                                @Html.TextBoxFor(m => m.roomPrice, new { @class = "form-control" })
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.roomPrice)
-                            @Html.TextBoxFor(m => m.roomPrice, new { @class = "form-control" })
-                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                @Html.LabelFor(m => m.bookingStatusId)
+                                @Html.DropDownListFor(m => m.roomPrice, Model.ListOfBookingStatus, new { @class = "form-control" })
+                            </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.bookingStatusId)
-                            @Html.DropDownListFor(m => m.roomPrice, Model.ListOfBookingStatus, new { @class = "form-control" })
+                            <div class="form-group col-md-2">
+                                @Html.LabelFor(m => m.roomTypeId)
+                                @Html.DropDownListFor(m => m.roomPrice, Model.ListOfRoomType, new { @class = "form-control" })
+                            </div>
                         </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                @Html.LabelFor(m => m.roomCapacity)
+                                @Html.TextBoxFor(m => m.roomCapacity, new { @class = "form-control" })
+                            </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.roomTypeId)
-                            @Html.DropDownListFor(m => m.roomPrice, Model.ListOfRoomType, new { @class = "form-control" })
+                            <div class="form-group col-md-2">
+                                @Html.LabelFor(m => m.roomDescription)
+                                @Html.TextBoxFor(m => m.roomDescription, new { @class = "form-control" })
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.roomCapacity)
-                            @Html.TextBoxFor(m => m.roomCapacity, new { @class = "form-control" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.roomDescription)
-                            @Html.TextBoxFor(m => m.roomDescription, new { @class = "form-control" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.roomImage)
-                            <input type="file" class="form-control" name="roomImage" title="Load Image" />
-                            <img id="imageRoom" height="100" width="100" style="border:solid" />
-                        </div>
-
+                        
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                @Html.LabelFor(m => m.roomImage)
+                                <input type="file" class="form-control" name="roomImage" title="Load Image" />
+                                <img id="imageRoom" height="100" width="100" style="border:solid" />
+                            </div>
+                        </div> 
                     </div>
                 </div>
 

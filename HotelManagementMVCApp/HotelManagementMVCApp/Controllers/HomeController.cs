@@ -26,5 +26,12 @@ namespace HotelManagementMVCApp.Controllers
 
             return View();
         }
+
+        public ActionResult Service()
+        {
+            ViewBag.Message = "Your service page.";
+
+            return View();
+        }
     }
 }

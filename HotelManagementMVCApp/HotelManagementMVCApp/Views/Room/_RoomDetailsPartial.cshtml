@@ -1,0 +1,32 @@
+﻿@model IEnumerable<HotelManagementMVCApp.ViewModel.RoomDetailsVM>
+
+<table class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Room Image</th>
+            <th>Room Number</th>
+            <th>Room Price</th>
+            <th>Booking Status</th>
+            <th>Room Type</th>
+            <th>Room Capacity</th>
+            <th>Room Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var item in Model)
+        {
+        <tr>
+            <td></td>
+            <td><img src="@Url.Content("~/RoomImages/"+ item.roomImage)" width="30" height="30" class="img-responsive" /></td>
+            <td>@item.roomNumber</td>
+            <td>@item.roomPrice</td>
+            <td>@item.bookingStatus</td>
+            <td>@item.roomType</td>
+            <td>@item.roomCapacity</td>
+            <td>@item.roomDescription</td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -62,5 +62,25 @@ namespace HotelManagementMVCApp.Controllers
 
             return Json(new { message = "Room saved successfully.", success = true }, JsonRequestBehavior.AllowGet);
         }
+
+        public PartialViewResult GetAllRooms()
+        {
+            IEnumerable<RoomDetailsVM> ListOfRoomDetailsVM =
+                (from objRoom in db.Room
+                 join objBooking in db.BookingStatus on objRoom.bookingStatusId equals objBooking.bookingStatusId
+                 join objRoomType in db.RoomType on objRoom.roomTypeId equals objRoomType.roomTypeId
+                 select new RoomDetailsVM()
+                 {
+                     roomNumber = objRoom.roomNumber,
+                     roomPrice = (int) objRoom.roomPrice,
+                     roomCapacity = (int) objRoom.roomCapacity,
+                     roomDescription = objRoom.roomDescription,
+                     bookingStatus = objBooking.bookingStatusName,
+                     roomType = objRoomType.roomTypeName,
+                     roomImage = objRoom.roomImage,
+                     roomId = objRoom.roomId
+                 }).ToList();
+            return PartialView("_RoomDetailsPartial", ListOfRoomDetailsVM);
+        }
     }
 }

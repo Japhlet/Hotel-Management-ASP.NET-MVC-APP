@@ -7,10 +7,30 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        LoadRoomDetails();
         $("#btnSave").click(function () {
             SaveRoomData();
         });
     });
+
+    function LoadRoomDetails() {
+        //$("#divLoadRoomDetails")
+        $.ajax({
+            async: true,
+            data: "GET",
+            dataType: "HTML",
+            contentType: false,
+            processData: false,
+            url: "/Room/GetAllRooms",
+            success: function (data) {
+                $("#divLoadRoomDetails").html(data);
+            },
+            error: function () {
+                alert("There was some problem to process your request.");
+            }
+
+        });
+    }
 
     function SaveRoomData() {
         var formData = new FormData();
@@ -132,4 +152,11 @@
             </div>
         </div>
     </div>
+</div>
+
+<div stypeof="margin-top:30px">
+
+</div>
+<div id="divLoadRoomDetails">
+
 </div>

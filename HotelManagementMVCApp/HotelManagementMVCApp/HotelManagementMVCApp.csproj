@@ -145,6 +145,7 @@
     <Compile Include="Models\RoomType.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\RoomDetailsVM.cs" />
     <Compile Include="ViewModel\RoomVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Service.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
+    <Content Include="Views\Room\_RoomDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

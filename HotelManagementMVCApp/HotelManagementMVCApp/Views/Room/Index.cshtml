@@ -13,6 +13,14 @@
         });
     });
 
+    function EditRoom(roomId) {
+        alert(roomId);
+    }
+
+    function DeleteRoom(roomId) {
+        alert(roomId);
+    }
+
     function LoadRoomDetails() {
         //$("#divLoadRoomDetails")
         $.ajax({
@@ -88,7 +96,7 @@
 </script>
 
 <div style="margin-top:10px">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#divAddRoom" data-backdrop="static" data-keyboard="false" >Add Room</button>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#divAddRoom" data-backdrop="static" data-keyboard="false" >Add Room</button>
 </div>
 
 <div id="divAddRoom" class="modal fade" role="dialog">

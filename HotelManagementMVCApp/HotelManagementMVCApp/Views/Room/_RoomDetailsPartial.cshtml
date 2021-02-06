@@ -18,7 +18,10 @@
         @foreach(var item in Model)
         {
         <tr>
-            <td></td>
+            <td>
+                <span id="btnEdit" class="glyphicon glyphicon-pencil btn btn-primary" onclick="EditRoom(@item.roomId)">Edit</span>&nbsp;&nbsp;
+                <span id="btnDelete" class="glyphicon glyphicon-trash btn btn-danger" onclick="DeleteRoom(@item.roomId)">Delete</span>
+            </td>
             <td><img src="@Url.Content("~/RoomImages/"+ item.roomImage)" width="30" height="30" class="img-responsive" /></td>
             <td>@item.roomNumber</td>
             <td>@item.roomPrice</td>

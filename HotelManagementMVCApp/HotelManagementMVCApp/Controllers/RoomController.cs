@@ -100,6 +100,7 @@ namespace HotelManagementMVCApp.Controllers
                 (from objRoom in db.Room
                  join objBooking in db.BookingStatus on objRoom.bookingStatusId equals objBooking.bookingStatusId
                  join objRoomType in db.RoomType on objRoom.roomTypeId equals objRoomType.roomTypeId
+                 where objRoom.isActive == true
                  select new RoomDetailsVM()
                  {
                      roomNumber = objRoom.roomNumber,
@@ -120,6 +121,20 @@ namespace HotelManagementMVCApp.Controllers
             var result = db.Room.Single(m => m.roomId == roomId); 
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult DeleteRoomDetails(int roomId)
+        {
+            string msg = String.Empty;
+
+            Room room = db.Room.Single(m => m.roomId == roomId);
+            room.isActive = false;           
+
+            db.SaveChanges();
+            msg = "Record successfully deleted.";
+
+            return Json(new { message = msg, success = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

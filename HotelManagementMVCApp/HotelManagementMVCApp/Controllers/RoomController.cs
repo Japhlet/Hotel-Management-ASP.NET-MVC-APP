@@ -15,6 +15,7 @@ namespace HotelManagementMVCApp.Controllers
         public RoomController()
         {
             db = new Db();
+            db.Configuration.ProxyCreationEnabled = false;
         }
 
         // GET: Room
@@ -41,26 +42,56 @@ namespace HotelManagementMVCApp.Controllers
         [HttpPost]
         public ActionResult Index(RoomVM roomVM)
         {
-            String imageUniqueName = new Guid().ToString();
-            String actualImageName = imageUniqueName + Path.GetExtension(roomVM.Image.FileName);
-            roomVM.Image.SaveAs(Server.MapPath("~/RoomImages"+ actualImageName));
+            string imageUniqueName = String.Empty;
+            string actualImageName = String.Empty;
+            string message = String.Empty;
 
-            Room room = new Room()
+            if (roomVM.roomId == 0)
             {
-                roomNumber = roomVM.roomNumber,
-                roomPrice = roomVM.roomPrice,
-                roomDescription = roomVM.roomDescription,
-                roomCapacity = roomVM.roomCapacity,
-                roomTypeId = roomVM.roomTypeId,
-                isActive = true,
-                bookingStatusId = roomVM.bookingStatusId,
-                roomImage = actualImageName
-            };
+                imageUniqueName = Guid.NewGuid().ToString();
+                actualImageName = imageUniqueName + Path.GetExtension(roomVM.Image.FileName);
+                roomVM.Image.SaveAs(Server.MapPath("~/RoomImages/" + actualImageName));
 
-            db.Room.Add(room);
+                Room room = new Room()
+                {
+                    roomNumber = roomVM.roomNumber,
+                    roomPrice = roomVM.roomPrice,
+                    roomDescription = roomVM.roomDescription,
+                    roomCapacity = roomVM.roomCapacity,
+                    roomTypeId = roomVM.roomTypeId,
+                    isActive = true,
+                    bookingStatusId = roomVM.bookingStatusId,
+                    roomImage = actualImageName
+                };
+
+                db.Room.Add(room);
+                message = "Room saved successfully.";
+            } else
+            {
+                Room roomToEdit = db.Room.Single(m => m.roomId == roomVM.roomId);
+
+                if (roomVM.Image != null)
+                {
+                    imageUniqueName = Guid.NewGuid().ToString();
+                    actualImageName = imageUniqueName + Path.GetExtension(roomVM.Image.FileName);
+                    roomVM.Image.SaveAs(Server.MapPath("~/RoomImages/" + actualImageName));
+                    roomToEdit.roomImage = actualImageName;
+                }
+
+                roomToEdit.roomNumber = roomVM.roomNumber;
+                roomToEdit.roomPrice = roomVM.roomPrice;
+                roomToEdit.roomDescription = roomVM.roomDescription;
+                roomToEdit.roomCapacity = roomVM.roomCapacity;
+                roomToEdit.roomTypeId = roomVM.roomTypeId;
+                roomToEdit.isActive = true;
+                roomToEdit.bookingStatusId = roomVM.bookingStatusId;
+                
+                message = "Room updated successfully.";
+            }
+
             db.SaveChanges();
 
-            return Json(new { message = "Room saved successfully.", success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public PartialViewResult GetAllRooms()
@@ -81,6 +112,14 @@ namespace HotelManagementMVCApp.Controllers
                      roomId = objRoom.roomId
                  }).ToList();
             return PartialView("_RoomDetailsPartial", ListOfRoomDetailsVM);
+        }
+
+        [HttpGet]
+        public JsonResult EditRoomDetails(int roomId)
+        {
+            var result = db.Room.Single(m => m.roomId == roomId); 
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

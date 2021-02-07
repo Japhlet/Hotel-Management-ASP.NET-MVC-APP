@@ -8,21 +8,45 @@
 <script type="text/javascript">
     $(document).ready(function () {
         LoadRoomDetails();
+        $("#txtRoomId").val("0");
         $("#btnSave").click(function () {
             SaveRoomData();
         });
     });
 
     function EditRoom(roomId) {
-        alert(roomId);
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "JSON",
+            contentType: "application/json; charset=utf-8",
+            data: { roomId: roomId },           
+            url: "/Room/EditRoomDetails",             
+            success: function (data) {                
+                $("#txtRoomNumber").val(data.roomNumber);
+                $("#txtRoomPrice").val(data.roomPrice);
+                $("#ddRoomStatus").val(data.bookingStatusId);
+                $("#ddRoomType").val(data.roomTypeId);
+                $("#txtRoomCapacity").val(data.roomCapacity);
+                $("#txtRoomDescription").val(data.roomDescription);
+                $("#imageRoom").attr('src', "../RoomImages/" +data.roomImage);
+
+                $("#divAddRoom").modal({ show: true });
+
+                $("#txtRoomId").val(data.roomId);
+                $("#btnSave").text("Update");
+            },
+            error: function () {
+                alert("There is some problem processing your request.");                
+            }
+        });        
     }
 
     function DeleteRoom(roomId) {
         alert(roomId);
     }
 
-    function LoadRoomDetails() {
-        //$("#divLoadRoomDetails")
+    function LoadRoomDetails() {        
         $.ajax({
             async: true,
             data: "GET",
@@ -41,8 +65,8 @@
     }
 
     function SaveRoomData() {
-        var formData = new FormData();
-
+        var formData = new FormData();        
+        formData.append("roomId", $("#txtRoomId").val());
         formData.append("roomNumber", $("#txtRoomNumber").val());
         formData.append("roomPrice", $("#txtRoomPrice").val());
         formData.append("bookingStatusId", $("#ddRoomStatus").val());
@@ -81,6 +105,8 @@
         $("#uploadImage").val('');
         $("#imageRoom").removeAttr('src');
         $("#txtRoomNumber").focus();
+        $("#txtRoomId").val(0);
+        $("#btnSave").text("Update");
     }
 
     function DisplayImage(result) {
@@ -109,6 +135,7 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
+                            @Html.HiddenFor(m => m.roomId, new { @id="txtRoomId"})
                             <div class="form-group col-md-2">
                                 @Html.LabelFor(m => m.roomNumber)
                                 @Html.TextBoxFor(m => m.roomNumber, new { @class = "form-control", id="txtRoomNumber" })
@@ -163,7 +190,7 @@
     </div>
 </div>
 
-<div stypeof="margin-top:30px">
+<div style="margin-top:10px">
 
 </div>
 <div id="divLoadRoomDetails">

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HotelManagementMVCApp.ViewModel.RoomDetailsVM>
 
 <table class="table table-striped" style="width:100%">
-    <thead>
+    <thead class="bg-primary">
         <tr>
             <th>Action</th>
             <th>Room Image</th>
@@ -19,7 +19,7 @@
         {
         <tr>
             <td>
-                <span id="btnEdit" class="glyphicon glyphicon-pencil btn btn-primary" onclick="EditRoom(@item.roomId)">Edit</span>&nbsp;&nbsp;
+                <span id="btnEdit" class="glyphicon glyphicon-pencil btn btn-info" onclick="EditRoom(@item.roomId)">Edit</span>&nbsp;&nbsp;
                 <span id="btnDelete" class="glyphicon glyphicon-trash btn btn-danger" onclick="DeleteRoom(@item.roomId)">Delete</span>
             </td>
             <td><img src="@Url.Content("~/RoomImages/"+ item.roomImage)" width="30" height="30" class="img-responsive" /></td>

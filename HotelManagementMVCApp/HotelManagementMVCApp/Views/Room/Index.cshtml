@@ -10,6 +10,9 @@
         LoadRoomDetails();
         $("#txtRoomId").val("0");
         $("#btnSave").click(function () {
+            if (!$("#formRoom").valid()) {
+                return;
+            }
             SaveRoomData();
         });
     });
@@ -155,52 +158,60 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Room</h4>
                 <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            @Html.HiddenFor(m => m.roomId, new { @id="txtRoomId"})
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(m => m.roomNumber)
-                                @Html.TextBoxFor(m => m.roomNumber, new { @class = "form-control", id="txtRoomNumber" })
+                    <form id="formRoom">
+                        <div class="container">
+                            <div class="row">
+                                @Html.HiddenFor(m => m.roomId, new { @id = "txtRoomId" })
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.roomNumber)
+                                    @Html.TextBoxFor(m => m.roomNumber, new { @class = "form-control", id = "txtRoomNumber" })
+                                    @Html.ValidationMessageFor(m => m.roomNumber, null, new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.roomPrice)
+                                    @Html.TextBoxFor(m => m.roomPrice, new { @class = "form-control", id = "txtRoomPrice" })
+                                    @Html.ValidationMessageFor(m => m.roomPrice, null, new { @class = "text-danger" })
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(m => m.roomPrice)
-                                @Html.TextBoxFor(m => m.roomPrice, new { @class = "form-control", id = "txtRoomPrice" })
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.bookingStatusId)
+                                    @Html.DropDownListFor(m => m.bookingStatusId, Model.ListOfBookingStatus, new { @class = "form-control", id = "ddRoomStatus" })
+                                    @Html.ValidationMessageFor(m => m.bookingStatusId, null, new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.roomTypeId)
+                                    @Html.DropDownListFor(m => m.roomTypeId, Model.ListOfRoomType, new { @class = "form-control", id = "ddRoomType" })
+                                    @Html.ValidationMessageFor(m => m.roomTypeId, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.roomCapacity)
+                                    @Html.TextBoxFor(m => m.roomCapacity, new { @class = "form-control", id = "txtRoomCapacity" })
+                                    @Html.ValidationMessageFor(m => m.roomCapacity, null, new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.roomDescription)
+                                    @Html.TextBoxFor(m => m.roomDescription, new { @class = "form-control", id = "txtRoomDescription" })
+                                    @Html.ValidationMessageFor(m => m.roomDescription, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.roomImage)
+                                    <input id="uploadImage" type="file" class="form-control" name="roomImage" title="Load Image" onchange="DisplayImage(this)" />
+                                    <img id="imageRoom" height="100" width="100" style="border:solid" />
+                                </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(m => m.bookingStatusId)
-                                @Html.DropDownListFor(m => m.bookingStatusId, Model.ListOfBookingStatus, new { @class = "form-control", id = "ddRoomStatus" })
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(m => m.roomTypeId)
-                                @Html.DropDownListFor(m => m.roomTypeId, Model.ListOfRoomType, new { @class = "form-control", id = "ddRoomType" })
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(m => m.roomCapacity)
-                                @Html.TextBoxFor(m => m.roomCapacity, new { @class = "form-control", id = "txtRoomCapacity" })
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(m => m.roomDescription)
-                                @Html.TextBoxFor(m => m.roomDescription, new { @class = "form-control", id = "txtRoomDescription" })
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(m => m.roomImage)
-                                <input id="uploadImage" type="file" class="form-control" name="roomImage" title="Load Image" onchange="DisplayImage(this)" />
-                                <img id="imageRoom" height="100" width="100" style="border:solid" />
-                            </div>
-                        </div> 
-                    </div>
+                    </form>
                 </div>
 
                 <div class="modal-footer">

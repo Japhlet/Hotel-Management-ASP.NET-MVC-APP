@@ -44,7 +44,8 @@ namespace HotelManagementMVCApp.Controllers
                     lastName = customerVM.lastName,
                     phoneNumber = customerVM.phoneNumber,
                     address = customerVM.address,
-                    genderId = customerVM.genderId                    
+                    genderId = customerVM.genderId,
+                    isDeleted = false
                 };
 
                 db.Customer.Add(customer);
@@ -59,6 +60,7 @@ namespace HotelManagementMVCApp.Controllers
                 customerToEdit.phoneNumber = customerVM.phoneNumber;
                 customerToEdit.address = customerVM.address;
                 customerToEdit.genderId = customerVM.genderId;
+                customerToEdit.isDeleted = false;
 
                 message = "Customer updated successfully.";
             }
@@ -72,7 +74,8 @@ namespace HotelManagementMVCApp.Controllers
         {
             IEnumerable<CustomerDetailsVM> ListOfCustomerDetailsVM =
                 (from objCustomer in db.Customer
-                 join objGender in db.Gender on objCustomer.genderId equals objGender.genderId                 
+                 join objGender in db.Gender on objCustomer.genderId equals objGender.genderId
+                 where objCustomer.isDeleted == false
                  select new CustomerDetailsVM()
                  {
                      firstName = objCustomer.firstName,
@@ -91,6 +94,20 @@ namespace HotelManagementMVCApp.Controllers
             var result = db.Customer.Single(m => m.customerId == customerId);
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult DeleteCustomerDetails(int customerId)
+        {
+            string msg = String.Empty;
+
+            Customer customer = db.Customer.Single(m => m.customerId == customerId);
+            customer.isDeleted = true;
+
+            db.SaveChanges();
+            msg = "Record successfully deleted.";
+
+            return Json(new { message = msg, success = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

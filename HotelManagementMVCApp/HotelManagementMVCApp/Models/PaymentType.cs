@@ -14,6 +14,8 @@ namespace HotelManagementMVCApp.Models
         [StringLength(20)]
         public string paymentTypeName { get; set; }
 
+        public bool? isDeleted { get; set; }
+
         public virtual Payment Payment { get; set; }
     }
 }

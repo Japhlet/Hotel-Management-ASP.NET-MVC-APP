@@ -20,6 +20,8 @@ namespace HotelManagementMVCApp.Models
         [StringLength(10)]
         public string genderTypeName { get; set; }
 
+        public bool? isDeleted { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
     }

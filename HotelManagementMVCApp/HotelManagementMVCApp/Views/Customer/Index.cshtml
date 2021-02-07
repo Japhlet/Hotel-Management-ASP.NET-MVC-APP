@@ -16,6 +16,32 @@
         });
     });
 
+    function EditCustomer(customerId) {
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "JSON",
+            contentType: "application/json; charset=utf-8",
+            data: { customerId: customerId },
+            url: "/Customer/EditCustomerDetails",
+            success: function (data) {
+                $("#txtFirstName").val(data.firstName);
+                $("#txtLastName").val(data.lastName);
+                $("#txtPhoneNumber").val(data.phoneNumber);
+                $("#txtAddress").val(data.address);
+                $("#ddGender").val(data.genderId);                
+
+                $("#divAddCustomer").modal({ show: true });
+
+                $("#txtCustomerId").val(data.customerId);
+                $("#btnSave").text("Update");
+            },
+            error: function () {
+                alert("There is some problem processing your request.");
+            }
+        });
+    }
+
     function LoadRoomDetails() {
         $.ajax({
             async: true,

@@ -84,5 +84,13 @@ namespace HotelManagementMVCApp.Controllers
                  }).ToList();
             return PartialView("_CustomerDetailsPartial", ListOfCustomerDetailsVM);
         }
+
+        [HttpGet]
+        public JsonResult EditCustomerDetails(int customerId)
+        {
+            var result = db.Customer.Single(m => m.customerId == customerId);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

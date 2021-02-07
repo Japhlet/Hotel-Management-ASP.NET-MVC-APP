@@ -67,5 +67,22 @@ namespace HotelManagementMVCApp.Controllers
 
             return Json(new { message = message, success = true }, JsonRequestBehavior.AllowGet);
         }
+
+        public PartialViewResult GetAllCustomers()
+        {
+            IEnumerable<CustomerDetailsVM> ListOfCustomerDetailsVM =
+                (from objCustomer in db.Customer
+                 join objGender in db.Gender on objCustomer.genderId equals objGender.genderId                 
+                 select new CustomerDetailsVM()
+                 {
+                     firstName = objCustomer.firstName,
+                     lastName = objCustomer.lastName,
+                     phoneNumber = objCustomer.phoneNumber,
+                     address = objCustomer.address,
+                     genderType = objGender.genderTypeName,                     
+                     customerId = objCustomer.customerId
+                 }).ToList();
+            return PartialView("_CustomerDetailsPartial", ListOfCustomerDetailsVM);
+        }
     }
 }

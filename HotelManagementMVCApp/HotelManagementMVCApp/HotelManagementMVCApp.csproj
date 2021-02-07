@@ -192,6 +192,7 @@
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Room\_RoomDetailsPartial.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\_CustomerDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

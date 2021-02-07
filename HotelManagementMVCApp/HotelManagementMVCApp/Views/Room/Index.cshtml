@@ -43,6 +43,12 @@
     }
 
     function DeleteRoom(roomId) {
+        var result = confirm("Are you sure you want to delete this record?");
+
+        if (result == false) {
+            return false;
+        }
+
         $.ajax({
             async: true,
             type: "GET",

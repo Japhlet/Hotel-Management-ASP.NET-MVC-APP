@@ -1,0 +1,23 @@
+﻿@model IEnumerable<HotelManagementMVCApp.ViewModel.GenderDetailsVM>
+
+<table class="table table-striped" style="width:100%">
+    <thead class="bg-primary">
+        <tr>
+            <th>Action</th>
+            <th>Gender Type Name</th>            
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <span id="btnEdit" class="glyphicon glyphicon-pencil btn btn-info" onclick="EditGender(@item.genderId)">Edit</span>&nbsp;&nbsp;
+                    <span id="btnDelete" class="glyphicon glyphicon-trash btn btn-danger" onclick="DeleteGender(@item.genderId)">Delete</span>
+                </td>
+                <td>@item.genderType</td>                
+            </tr>
+        }
+    </tbody>
+</table>

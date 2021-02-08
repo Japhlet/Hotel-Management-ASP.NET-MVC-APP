@@ -128,7 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BookingController.cs" />
+    <Compile Include="Controllers\RoomBookingController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\GenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -147,6 +147,7 @@
     <Compile Include="Models\RoomType.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\RoomBookingVM.cs" />
     <Compile Include="ViewModel\CustomerDetailsVM.cs" />
     <Compile Include="ViewModel\CustomerVM.cs" />
     <Compile Include="ViewModel\GenderDetailsVM.cs" />
@@ -198,11 +199,11 @@
     <Content Include="Views\Customer\_CustomerDetailsPartial.cshtml" />
     <Content Include="Views\Gender\_GenderDetailsPartial.cshtml" />
     <Content Include="Views\Gender\Index.cshtml" />
+    <Content Include="Views\RoomBooking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="RoomImages\" />
-    <Folder Include="Views\Booking\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

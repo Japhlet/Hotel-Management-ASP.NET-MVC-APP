@@ -1,0 +1,81 @@
+﻿@model HotelManagementMVCApp.ViewModel.RoomBookingVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="margin-top:10px">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#divAddRoomBooking" data-backdrop="static" data-keyboard="false">Book Room</button>
+</div>
+
+<div id="divAddRoomBooking" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Room Booking</h4>
+                <div class="modal-body">
+                    <form id="formBookingRoom">
+                        <div class="container">
+                            <div class="row">
+                                @Html.HiddenFor(m => m.bookingId, new { @id = "txtRoomBookingId" })
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.customerId)
+                                    @Html.DropDownListFor(m => m.customerId, Model.ListOfCustomers, new { @class = "form-control", id = "ddRoomCustomer" })
+                                    @Html.ValidationMessageFor(m => m.customerId, null, new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.bookingFrom)
+                                    @Html.TextBoxFor(m => m.bookingFrom, new { @class = "form-control", id = "txtBookingFrom" })
+                                    @Html.ValidationMessageFor(m => m.bookingFrom, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.bookingTo)
+                                    @Html.TextBoxFor(m => m.bookingTo, new { @class = "form-control", id = "txtBookingTo" })
+                                    @Html.ValidationMessageFor(m => m.bookingTo, null, new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.assignRoomId)
+                                    @Html.DropDownListFor(m => m.assignRoomId, Model.ListOfAssignedRooms, new { @class = "form-control", id = "ddAssignRoom" })
+                                    @Html.ValidationMessageFor(m => m.assignRoomId, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.numberOfOccupants)
+                                    @Html.TextBoxFor(m => m.numberOfOccupants, new { @class = "form-control", id = "txtNumberOfOccupants" })
+                                    @Html.ValidationMessageFor(m => m.numberOfOccupants, null, new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.totalAmount)
+                                    @Html.TextBoxFor(m => m.totalAmount, new { @class = "form-control", id = "txtTotalAmount" })
+                                    @Html.ValidationMessageFor(m => m.totalAmount, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btnSave" type="button" class="btn btn-success">Save</button> &nbsp;
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:10px">
+
+</div>
+<div id="divLoadBookingRoomDetails">
+
+</div>
+

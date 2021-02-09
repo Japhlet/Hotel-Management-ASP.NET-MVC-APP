@@ -11,6 +11,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         DateTimePicker();
+        LoadRoomBookingsDetails();
+        $("#txtBookingId").val("0");
         $("#btnSave").click(function () {
             if (!$("#formBookingRoom").valid()) {
                 return;
@@ -18,6 +20,24 @@
             SaveCustomerBookingRoomData();
         });
     });
+
+    function LoadRoomBookingsDetails() {
+        $.ajax({
+            async: true,
+            data: "GET",
+            dataType: "HTML",
+            contentType: false,
+            processData: false,
+            url: "/RoomBooking/GetAllRoomBookings",
+            success: function (data) {
+                $("#divLoadRoomBookingsDetails").html(data);
+            },
+            error: function () {
+                alert("There was some problem to process your request.");
+            }
+
+        });
+    }
 
     function DateTimePicker() {
         $(".datepicker").datepicker({
@@ -67,7 +87,7 @@
                 if (data.success == true) {
                     alert(data.message);
                     ResetRoomBookingInformation();
-                    //LoadRoomDetails();
+                    LoadRoomBookingsDetails()
                 }
             },
             error: function () {
@@ -133,13 +153,7 @@
                                     @Html.LabelFor(m => m.numberOfOccupants)
                                     @Html.TextBoxFor(m => m.numberOfOccupants, new { @class = "form-control", id = "txtNumberOfOccupants" })
                                     @Html.ValidationMessageFor(m => m.numberOfOccupants, null, new { @class = "text-danger" })
-                                </div>
-
-                                <div class="form-group col-md-2">
-                                    @Html.LabelFor(m => m.totalAmount)
-                                    @Html.TextBoxFor(m => m.totalAmount, new { @class = "form-control", id = "txtTotalAmount" })
-                                    @Html.ValidationMessageFor(m => m.totalAmount, null, new { @class = "text-danger" })
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </form>
@@ -157,7 +171,7 @@
 <div style="margin-top:10px">
 
 </div>
-<div id="divLoadBookingRoomDetails">
+<div id="divLoadRoomBookingsDetails">
 
 </div>
 

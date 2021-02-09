@@ -90,5 +90,28 @@ namespace HotelManagementMVCApp.Controllers
 
             return Json(new { message = message, success = true }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public PartialViewResult GetAllRoomBookings()
+        {
+            List<RoomBookingDetailsVM> listOfRoomBookingDetailsVM = new List<RoomBookingDetailsVM>();
+            listOfRoomBookingDetailsVM = (from objRoomBooking in db.RoomBooking
+                 join objCustomer in db.Customer on objRoomBooking.customerId equals objCustomer.customerId
+                 join objRoom in db.Room on objRoomBooking.assignRoomId equals objRoom.roomId
+                 where objRoomBooking.isDeleted == false
+                 select new RoomBookingDetailsVM()
+                 {
+                     customer = objCustomer.firstName+" "+objCustomer.lastName,
+                     bookingFrom = (DateTime) objRoomBooking.bookingFrom,
+                     bookingTo = (DateTime) objRoomBooking.bookingTo,
+                     numberOfDays = System.Data.Entity.DbFunctions.DiffDays(objRoomBooking.bookingFrom, objRoomBooking.bookingTo).Value,
+                     roomNumber = objRoom.roomNumber,
+                     numberOfOccupants = (int) objRoomBooking.numberOfOccupants,
+                     roomPrice = (int) objRoom.roomPrice,
+                     totalAmount = (int) objRoomBooking.totalAmount,                     
+                     bookingId = objRoomBooking.bookingId                     
+                 }).ToList();
+            return PartialView("_RoomBookingsDetailsPartial", listOfRoomBookingDetailsVM);
+        }
     }
 }

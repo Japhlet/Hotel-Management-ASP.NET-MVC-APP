@@ -4,6 +4,88 @@
     ViewBag.Title = "Index";
 }
 
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        DateTimePicker();
+        $("#btnSave").click(function () {
+            if (!$("#formBookingRoom").valid()) {
+                return;
+            }
+            SaveCustomerBookingRoomData();
+        });
+    });
+
+    function DateTimePicker() {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-M-yy',
+            changeMonth: true,
+            changeYear: true,
+            showOn: 'button',
+            sideBySide: true,
+            controlType: 'select',
+            buttonText: '<span class="glyphicon glyphicon-calendar"></span>',
+            minDate: new Date()
+        });
+
+        $("#txtBookingFrom").change(function () {
+            var date2 = $("#txtBookingFrom").datepicker('getDate', '+1d');
+            date2.setDate(date2.getDate() + 1);
+            $("#txtBookingTo").datepicker('option', 'minDate', date2);
+            $("#txtBookingTo").datepicker('setDate', date2);
+        });
+    }
+
+    function SaveCustomerBookingRoomData() {
+        @*var formData = new FormData();
+        formData.append("customerId", $("#ddRoomCustomer").val());
+        formData.append("bookingFrom", $("#txtBookingFrom").val());
+        formData.append("bookingTo", $("#txtBookingTo").val());
+        formData.append("assignRoomId", $("#ddAssignRoom").val());
+        formData.append("numberOfOccupants", $("#txtNumberOfOccupants").val());
+        formData.append("totalAmount", $("#txtTotalAmount").val()); *@
+
+        var roomBookingVM = {};
+        roomBookingVM.customerId = $("#ddRoomCustomer").val();
+        roomBookingVM.bookingFrom = $("#txtBookingFrom").val();
+        roomBookingVM.bookingTo = $("#txtBookingTo").val();
+        roomBookingVM.assignRoomId = $("#ddAssignRoom").val();
+        roomBookingVM.numberOfOccupants = $("#txtNumberOfOccupants").val();
+        roomBookingVM.totalAmount = $("#txtTotalAmount").val();
+
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "JSON",
+            contentType: "application/json; charset=utf-8",
+            url: "/RoomBooking/Index",
+            data: JSON.stringify(roomBookingVM),
+            success: function (data) {
+                if (data.success == true) {
+                    alert(data.message);
+                    ResetRoomBookingInformation();
+                    //LoadRoomDetails();
+                }
+            },
+            error: function () {
+                alert("There is an error processing your request. Please try after some time");
+            }
+        });
+    }
+
+    function ResetRoomBookingInformation() {
+        $("#ddRoomCustomer").val(1);        
+        $("#ddAssignRoom").val(1);
+        $("#txtNumberOfOccupants").val('');
+        $("#ddRoomCustomer").focus();
+        $("#txtBookingId").val(0);
+        $("#btnSave").text("Update");
+    }
+</script>
+
 <div style="margin-top:10px">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#divAddRoomBooking" data-backdrop="static" data-keyboard="false">Book Room</button>
 </div>
@@ -27,7 +109,7 @@
 
                                 <div class="form-group col-md-2">
                                     @Html.LabelFor(m => m.bookingFrom)
-                                    @Html.TextBoxFor(m => m.bookingFrom, new { @class = "form-control", id = "txtBookingFrom" })
+                                    @Html.EditorFor(m => m.bookingFrom, new { htmlAttributes = new { @readonly = "true", Value = Model.bookingFrom.ToString("dd-MMM-yyyy"), @class = "form-control datepicker", id = "txtBookingFrom" } })
                                     @Html.ValidationMessageFor(m => m.bookingFrom, null, new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -35,7 +117,7 @@
                             <div class="row">
                                 <div class="form-group col-md-2">
                                     @Html.LabelFor(m => m.bookingTo)
-                                    @Html.TextBoxFor(m => m.bookingTo, new { @class = "form-control", id = "txtBookingTo" })
+                                    @Html.EditorFor(m => m.bookingTo, new { htmlAttributes = new { @readonly = "true", Value = Model.bookingTo.ToString("dd-MMM-yyyy"), @class = "form-control datepicker", id = "txtBookingTo" } })
                                     @Html.ValidationMessageFor(m => m.bookingTo, null, new { @class = "text-danger" })
                                 </div>
 

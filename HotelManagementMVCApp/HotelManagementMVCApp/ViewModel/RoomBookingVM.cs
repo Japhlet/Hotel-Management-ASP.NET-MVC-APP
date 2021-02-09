@@ -15,16 +15,16 @@ namespace HotelManagementMVCApp.ViewModel
         [Display(Name = "Customer*")]
         [Required(ErrorMessage = "Customer is required.")]
         public int? customerId { get; set; }
-
-        [Column(TypeName = "datetime2")]
+        
         [Display(Name = "Book From*")]
-        [Required(ErrorMessage = "Booking start date is required.")]        
-        public DateTime? bookingFrom { get; set; }
-
-        [Column(TypeName = "datetime2")]
+        [Required(ErrorMessage = "Booking start date is required.")]       
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode =true)]
+        public DateTime bookingFrom { get; set; }
+        
         [Display(Name = "Book To*")]
-        [Required(ErrorMessage = "Booking end date is required.")]
-        public DateTime? bookingTo { get; set; }
+        [Required(ErrorMessage = "Booking end date is required.")]        
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode =true)]
+        public DateTime bookingTo { get; set; }
 
         [Display(Name = "Assign Room*")]
         [Required(ErrorMessage = "Assign Room is required.")]
